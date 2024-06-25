@@ -59,7 +59,7 @@ class GetData(BaseModel):
 
 
 nobitex_api = NobitexAPI(base_url="https://api.nobitex.ir/",
-                         token={'Authorization': f'Token fb4d99e9cd4650fdf36304b499e79b4cbca3cb28'})
+                         token={'Authorization': f'Token *****'})
 
 
 @app.post('/balance')
