@@ -1,6 +1,8 @@
 from fastapi import HTTPException
 from typing import Optional
 import requests
+
+
 class NobitexAPI:
     def __init__(self, base_url: str, token: dict):
         self.base_url = base_url
