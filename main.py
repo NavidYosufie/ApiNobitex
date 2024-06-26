@@ -6,6 +6,17 @@ import requests
 app = FastAPI()
 
 
+@app.get('/blog/{id}/comments')
+def get_comment():
+    pass
+
+
+def get_blot(page_size: str, page: Optional[int] = None):
+    return {'message': f'{page=} -- {page_size=}'}
+
+
+#
+#
 class NobitexAPI:
     def __init__(self, base_url: str, token: dict):
         self.base_url = base_url
@@ -23,8 +34,13 @@ class NobitexAPI:
         response = requests.post(url, headers=self.token, data=payload)
         return response.json()
 
-    def deposits_list(self):
+    def deposits_list(self, payload: Optional[dict] = None):
         url = f'{self.base_url}users/wallets/deposits/list'
+        if payload:
+            response = requests.get(url, headers=self.token, data=payload)
+            if response.status_code == 200:
+                return response.json()
+            return HTTPException(status_code=400, detail='Your data invalid')
         response = requests.get(url, headers=self.token)
         if response.status_code == 200:
             return response.json()
@@ -56,9 +72,9 @@ api = NobitexAPI('https://api.nobitex.ir/', {'Authorization': 'Token fb4d99e9cd4
 
 
 class GetData(BaseModel):
-    payload: dict
+    payload: Optional[dict] = None
 
 
 @app.post('/')
 def get_list(data: GetData = Body()):
-    return api.get_wallet_balance(data.payload)
+    return api.deposits_list(data.payload)
