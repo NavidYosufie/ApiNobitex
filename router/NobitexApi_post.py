@@ -3,7 +3,7 @@ from ActionNobitex import NobitexAPI
 from fastapi import FastAPI, Body, APIRouter
 
 router = APIRouter(prefix='/api')
-api = NobitexAPI('https://api.nobitex.ir/', {'Authorization': 'Token fb4d99e9cd4650fdf36304b499e79b4cbca3cb28'})
+api = NobitexAPI('https://api.nobitex.ir/', {'Authorization': 'Token *****'})
 
 
 @router.post('/api/card/add', response_model=OutputSchema, tags=['Profile user'])
